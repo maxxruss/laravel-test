@@ -1,0 +1,36 @@
+version: "3.7"
+
+services:
+    laravel-test-apache:
+        container_name: laravel-test-apache
+        hostname: laravel-test-apache
+        restart: always
+        ports:
+            - "9000:80"
+        build: .       
+        volumes:
+            - ./src:/var/www/html
+        user: root
+        depends_on:
+            - laravel-test-mysql
+        networks:
+            - laravel_test_net
+
+    laravel-test-mysql:
+        container_name: laravel-test-mysql
+        hostname: laravel-test-mysql
+        image: mysql:5.7
+        user: root
+        environment:
+            MYSQL_ROOT_PASSWORD: 123456
+            MYSQL_DATABASE: test
+            MYSQL_USER: test
+            MYSQL_PASSWORD: 123456
+        ports:
+            - "3307:3306"
+        networks:
+            - laravel_test_net
+
+networks:
+    laravel_test_net:
+        name: laravel_test_net

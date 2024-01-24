@@ -7,30 +7,35 @@ services:
         restart: always
         ports:
             - "9000:80"
-        build: .       
+        build: .
         volumes:
             - ./src:/var/www/html
         user: root
         depends_on:
-            - laravel-test-mysql
+            - laravel-test-postgres
         networks:
             - laravel_test_net
 
-    laravel-test-mysql:
-        container_name: laravel-test-mysql
-        hostname: laravel-test-mysql
-        image: mysql:5.7
-        user: root
-        environment:
-            MYSQL_ROOT_PASSWORD: 123456
-            MYSQL_DATABASE: test
-            MYSQL_USER: test
-            MYSQL_PASSWORD: 123456
+    laravel-test-postgres:
+        container_name: laravel-test-postgres
+        hostname: laravel-test-postgres
+        image: postgres
         ports:
-            - "3307:3306"
+            - "5432:5432"
+        environment:
+            POSTGRES_DB: test
+            POSTGRES_USER: test #пользователь при создании базы первом запуске контейнера
+            POSTGRES_PASSWORD: test #пароль пользователя при создании базы данных при первом запуске контейнера
+            PGUSER: test #пользователь для подключения к базе
+            PGPASSWORD: test #пользователь для подключения к базе
+        volumes:
+            - test-pgdata:/var/lib/postgresql/data
         networks:
             - laravel_test_net
 
 networks:
     laravel_test_net:
         name: laravel_test_net
+
+volumes:
+    test-pgdata:

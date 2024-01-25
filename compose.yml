@@ -19,6 +19,7 @@ services:
     laravel-test-postgres:
         container_name: laravel-test-postgres
         hostname: laravel-test-postgres
+        restart: always
         image: postgres
         ports:
             - "5432:5432"

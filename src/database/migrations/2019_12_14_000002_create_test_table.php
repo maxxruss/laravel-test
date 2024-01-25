@@ -15,7 +15,7 @@ return new class extends Migration
     {
         // dd(Schema::hasColumn('personal_access_tokens', 'name'));
 
-        Schema::rename('users', 'users_renamed');
+        // Schema::rename('users', 'users_renamed');
 
         // Schema::connection('sqlite')->create('users', function (Blueprint $table) {
         //     $table->id();
@@ -35,6 +35,6 @@ return new class extends Migration
     public function down()
     {
         // Schema::dropIfExists('test');
-        Schema::rename('users_renamed', 'users');
+        // Schema::rename('users_renamed', 'users');
     }
 };

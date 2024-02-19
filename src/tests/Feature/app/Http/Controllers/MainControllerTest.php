@@ -11,10 +11,13 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 use App\Models\User;
+use Illuminate\Testing\Fluent\AssertableJson;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class MainControllerTest extends TestCase
 {
-    use WithoutMiddleware;
+    // use WithoutMiddleware;
     // use DatabaseTransactions;
     // use DatabaseMigrations;
     // use RefreshDatabase;
@@ -34,26 +37,92 @@ class MainControllerTest extends TestCase
             ]);
     }
 
-    public function testPostData()
+    public function testOldData()
     {
-        // $response = $this->json('GET', '/api/getData');
-        // $response = $this->postJson('/api/postData', ['name' => 'max']);
-
-        // $response = $this->withHeaders(['X-Header' => 'max_header'])->post('/api/postData');
-
-        $response = $this->withCookie('color', 'blue')->get('/testCookie');
-        // dd($response);
-
-        $response->assertStatus(200)
-            ->assertCookie('color', 'blue');
+        // Отправляем PUT-запрос на /api/endpoint с данными ['key' => 'value']
+        $response = $this->get('/test');
+        // $response->dd();
+        // dd($response->decodeResponseJson());
 
 
+        // Проверяем, что запрос выполнен успешно (код ответа 200)
+        $response->assertStatus(200);
 
-        // $response->assertStatus(200)
-        //     ->assertJson([
-        //         'name' => 'max',
-        //         'email' => 'john@example.com',
-        //         'age' => 30
-        //     ]);
+        $response->assertJson(
+            function (AssertableJson $json) {
+                // dd($json);
+                $json
+                    ->first(function ($sub_json) {
+                        // dd($sub_json);
+                        $sub_json
+                            ->where('test4', 444)
+                            ->where('test5', 555)
+                            ->where('test6', 666);
+                    })
+                    ->etc()
+                    // ->where('test', 111)
+                    // ->missing('password')
+                    // ->hasAll('data', 'data2')
+                    // ->has(2)
+                    // ->hasany('data', 'message', 'code')
+                    // ->missingAll('message', 'code')
+                    // ->has('data', 3)
+                    // ->has('data', 3, function ($jsonSub) {
+                    //     $jsonSub->where('test1', 111);
+                    // })
+                ;
+            }
+        );
+
+        // // Проверяем, что ответ содержит определенные данные
+        // $response->assertJson(['status' => 'success']);
+
+        // // Проверяем, что ответ содержит определенный ключ
+        // $response->assertJsonFragment(['key' => 'value']);
+    }
+
+    public function testData()
+    {
+        // Storage::fake('avatars');
+
+        // $file = UploadedFile::fake()->image('avatar.jpg');
+        $userData = [
+            'name' => $this->faker->name,
+            'email' => $this->faker->unique()->safeEmail,
+            // Другие необходимые поля
+        ];
+
+        $response = $this->postJson('api/postData', $userData);
+        // $response->assertValid(['email']);
+        // $this->assertAuthenticated($guard = null);
+        // $response->assertStatus(404);
+        // $response->assertCookie('color', 'blue');
+        // $response->assertDownload();
+        // $response->assertHeader('Content-FileName', 'avatar1.jpg');
+        // $response->assertOk();
+        // $response->assertNotFound();
+        // $response->assertJsonFragment(['user' => 'Taylor Otwell']);
+        // $response->assertJsonPath('data.test4.user', 'Taylor Otwell');
+        // $response->assertExactJson([
+        //     'data' =>
+        //     [
+        //         'test4' => [
+        //             'user' => 'Taylor Otwell'
+        //         ],
+        //         'test5' => 555,
+        //         'test6' => 666
+        //     ]
+        // ]);
+        dd($response);
+
+        // Перемещаем фейковый файл на диск
+        // Storage::disk('avatars')->putFileAs('/', $file, $file->hashName());
+
+        // Storage::disk('avatars')->assertExists($file->hashName());
+
+        // Storage::disk('avatars')->assertMissing('missing.jpg');
+
+        // $response->assertDownload();
+        // $response->assertHeader('Content-Disposition', 'attachment');
     }
 }

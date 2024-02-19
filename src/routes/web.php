@@ -20,4 +20,3 @@ Route::get('/', function () {
 });
 
 Route::post('/auth', [AuthController::class, 'auth']);
-Route::get('/testCookie', [MainController::class, 'index']);

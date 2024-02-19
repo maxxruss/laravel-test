@@ -17,4 +17,5 @@ use App\Http\Controllers\MainController;
 
 Route::get('getData', [MainController::class, 'getData']);
 Route::post('postData', [MainController::class, 'postData']);
+Route::get('test', [MainController::class, 'getData']);
 

@@ -11,9 +11,14 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 use App\Models\User;
+use App\Models\Types;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Artisan;
+use App\Models\Phones;
+use App\Models\Post;
+use App\Models\Comment;
 
 class MainControllerTest extends TestCase
 {
@@ -124,5 +129,46 @@ class MainControllerTest extends TestCase
 
         // $response->assertDownload();
         // $response->assertHeader('Content-Disposition', 'attachment');
+    }
+
+    /**
+     * Test a console command.
+     *
+     * @return void
+     */
+    public function test_console_command()
+    {
+        // $this->artisan('mail:send 1')->assertSuccessful();
+        // Artisan::call('mail:send max --id=1 --id=2');
+
+        $user = 'max';
+
+        Artisan::call('mail:send', [
+            'user' => $user, '--id' => 1, '--id' => 2
+        ]);
+    }
+
+    /**
+     * Test a console command.
+     *
+     * @return void
+     */
+    public function test_types()
+    {
+        // $types = Types::factory()->create();
+
+        // $user = User::factory()
+        //     ->has(Phones::factory()->count(3))
+        //     ->create();
+
+
+        // dd($user);
+        // $this->artisan('mail:send 1')->assertSuccessful();
+        // Artisan::call('mail:send max --id=1 --id=2');
+        $post = Post::factory()->has(Comment::factory()->count(3))->create();
+        // $comments = Comment::factory()->count(4)->for(
+        //     Post::factory(), 'commentable'
+        // )->create();
+        dd($post);
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Phones;
 
 class User extends Authenticatable
 {
@@ -45,5 +46,21 @@ class User extends Authenticatable
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = bcrypt($password);
+    }
+
+    /**
+     * Получить телефон, связанный с пользователем.
+     */
+    public function phones()
+    {
+        return $this->hasMany(Phones::class);
+    }
+
+    /**
+     * Получить изображение поста.
+     */
+    public function comment()
+    {
+        return $this->morphOne(Comment::class, 'commentable');
     }
 }

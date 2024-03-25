@@ -28,11 +28,13 @@ class MainControllerTest extends TestCase
     // use RefreshDatabase;
     use WithFaker;
 
+
     /** @test */
     public function testGetData()
     {
         // $response = $this->json('GET', '/api/getData');
-        $response = $this->postJson('/api/getData', ['name' => 'max']);
+        $response = $this->getJson('/api/getData');
+        dd($response->json());
 
         $response->assertStatus(200)
             ->assertJson([

@@ -9,9 +9,17 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Response;
 use App\Models\User;
+use App\Services\StringProcessingService;
 
 class MainController extends Controller
 {
+    protected $stringProcessingService;
+
+    public function __construct(StringProcessingService $stringProcessingService)
+    {
+        $this->stringProcessingService = $stringProcessingService;
+    }
+
     public function getData(Request $request)
     {
         // Получаем значение заголовка X-Header
@@ -19,13 +27,10 @@ class MainController extends Controller
 
         // Возвращаем какие-то данные в ответе
         // return response()->json(['test' => 111]);
+        $result = $this->stringProcessingService->processString('result', 2);
+
         return response()->json([
-            'data' =>
-            [
-                'test4' => 444,
-                'test5' => 555,
-                'test6' => 666
-            ]
+            'result' => $result
         ]);
 
         // Получаем путь к файлу
@@ -80,7 +85,7 @@ class MainController extends Controller
             // Другие правила валидации для других полей
         ]);
 
-        $validatedData = $request->validate(['name' => 'required|string|max:255','email' => 'required|email']);
+        $validatedData = $request->validate(['name' => 'required|string|max:255', 'email' => 'required|email']);
 
         // Создание пользователя
         $user = User::create($validatedData);

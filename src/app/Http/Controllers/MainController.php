@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Response;
 use App\Models\User;
 use App\Services\StringProcessingService;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Route;
+
 
 class MainController extends Controller
 {
@@ -18,6 +21,49 @@ class MainController extends Controller
     public function __construct(StringProcessingService $stringProcessingService)
     {
         $this->stringProcessingService = $stringProcessingService;
+    }
+
+    public function getFake()
+    {
+        $value = Cache::get('key');
+
+        return response()->json([
+            'result' => $value
+        ]);
+    }
+
+    public function get_1()
+    {
+        return response()->json([
+            'result' => 1
+        ]);
+    }
+
+    public function get_2()
+    {
+        return response()->json([
+            'result' => 2
+        ]);
+    }
+
+    public function getUser(User $user)
+    {
+        return response()->json([
+            'result' => $user
+        ]);
+    }
+
+    public function getRoute()
+    {
+        $route = Route::current(); // Illuminate\Routing\Route
+        $name = Route::currentRouteName(); // string
+        $action = Route::currentRouteAction(); // string
+
+        return response()->json([
+            'route' => $route,
+            'name' => $name,
+            'action' => $action
+        ]);
     }
 
     public function getData(Request $request)

@@ -19,6 +19,10 @@ use Illuminate\Support\Facades\Artisan;
 use App\Models\Phones;
 use App\Models\Post;
 use App\Models\Comment;
+use App\Service;
+use Mockery\MockInterface;
+use Illuminate\Support\Facades\Cache;
+
 
 class MainControllerTest extends TestCase
 {
@@ -172,5 +176,24 @@ class MainControllerTest extends TestCase
         //     Post::factory(), 'commentable'
         // )->create();
         dd($post);
+    }
+
+    /** @test */
+    public function test_fake()
+    {
+        Cache::shouldReceive('get')
+            ->once()
+            ->with('key')
+            ->andReturn('value1');
+
+        $response = $this->getJson('/api/getFake');
+        dd($response->json());
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'name' => 'John Doe',
+                'email' => 'john@example.com',
+                'age' => 30
+            ]);
     }
 }

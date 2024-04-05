@@ -20,3 +20,7 @@ Route::get('/', function () {
 });
 
 Route::post('/auth', [AuthController::class, 'auth']);
+Route::view('/home', 'home');
+Route::view('/login', 'login');
+Route::post('/profile', [MainController::class, 'profile']);
+

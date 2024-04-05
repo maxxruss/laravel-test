@@ -23,6 +23,14 @@ class MainController extends Controller
         $this->stringProcessingService = $stringProcessingService;
     }
 
+    public function profile($request)
+    {
+        var_dump('ok');die();
+        // return response()->json([
+        //     'result' => 'ok'
+        // ]);
+    }
+
     public function getFake()
     {
         $value = Cache::get('key');

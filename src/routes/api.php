@@ -28,7 +28,7 @@ Route::get('get_1', [MainController::class, 'get_1']);
 Route::get('test/get_2', [MainController::class, 'get_2']);
 Route::view('/welcome', 'welcome');
 Route::get('/user/{id}', [MainController::class, 'get_1']);
-Route::get('test/get_2', [MainController::class, 'get_2'])->name('profile');
+Route::get('test/get_2', [MainController::class, 'get_2']);
 Route::get('/model/user/{user}', function ($user) {
     return $user;
 });
@@ -38,10 +38,17 @@ Route::get('/users/{user}/phones/{phone}', function (User $user, Phones $phone) 
 
 Route::get('getRoute', [MainController::class, 'getRoute']);
 // Route::view('/home', 'home')->middleware('testToken');
-Route::view('/login', 'login');
 
-Route::middleware('testToken')->group(function () {
-    Route::view('/home', 'home')->withoutMiddleware('testToken');
+// Route::middleware('testToken')->group(function () {
+//     Route::view('/home', 'home')->withoutMiddleware('testToken');
+// });
+
+Route::get('/token', function (Request $request) {
+    $token = $request->session()->token();
+
+    $token = csrf_token();
+    return $token;
+    // ...
 });
 
 

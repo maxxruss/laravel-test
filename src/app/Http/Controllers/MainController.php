@@ -25,7 +25,8 @@ class MainController extends Controller
 
     public function profile($request)
     {
-        var_dump('ok');die();
+        var_dump('ok');
+        die();
         // return response()->json([
         //     'result' => 'ok'
         // ]);
@@ -47,10 +48,10 @@ class MainController extends Controller
         ]);
     }
 
-    public function get_2()
+    public function get_2(Request $request)
     {
         return response()->json([
-            'result' => 2
+            'result' => $request->expectsJson()
         ]);
     }
 

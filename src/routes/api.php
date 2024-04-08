@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\UserController;
 use App\Models\Phones;
 use App\Models\User;
 
@@ -25,7 +26,6 @@ Route::get('getFake', [MainController::class, 'getFake']);
 Route::get('get_1', [MainController::class, 'get_1']);
 // return redirect()->route('profile');
 
-Route::get('test/get_2', [MainController::class, 'get_2']);
 Route::view('/welcome', 'welcome');
 Route::get('/user/{id}', [MainController::class, 'get_1']);
 Route::get('test/get_2', [MainController::class, 'get_2']);
@@ -50,6 +50,9 @@ Route::get('/token', function (Request $request) {
     return $token;
     // ...
 });
+
+Route::apiResource('users', UserController::class);
+
 
 
 // Route::view('/home', 'home')->middleware('testToken');

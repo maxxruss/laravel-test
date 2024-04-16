@@ -18,9 +18,10 @@ use App\Models\User;
 |
 */
 
+Route::get('test', [MainController::class, 'testGet']);
+Route::post('test', [MainController::class, 'testPost']);
 Route::get('getData', [MainController::class, 'getData']);
 Route::post('postData', [MainController::class, 'postData']);
-Route::get('test', [MainController::class, 'getData']);
 Route::get('getFake', [MainController::class, 'getFake']);
 // Route::permanentRedirect('get_1', 'get_2');
 Route::get('get_1', [MainController::class, 'get_1']);
@@ -56,6 +57,8 @@ Route::apiResource('users', UserController::class);
 
 
 // Route::view('/home', 'home')->middleware('testToken');
+
+Route::get('/psr', [MainController::class, 'getPsr']);
 
 
 Route::fallback([MainController::class, 'fallback']);

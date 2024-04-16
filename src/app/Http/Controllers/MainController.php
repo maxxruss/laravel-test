@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Services\StringProcessingService;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
+use Psr\Http\Message\ServerRequestInterface;
 
 
 class MainController extends Controller
@@ -23,7 +24,46 @@ class MainController extends Controller
         $this->stringProcessingService = $stringProcessingService;
     }
 
-    public function profile($request)
+    public function testGet(Request $request)
+    {
+
+    }
+
+    public function testPost(Request $request)
+    {
+        $path = $request->my_file->storeAs('images', 'word.doc');
+        // $file = $request->file('my_file');
+        return response()->json([
+            'path' => $path,
+            // 'ext' => $request->my_file->extension(),
+            // 'tmp' => sys_get_temp_dir(),
+        ]);
+
+        // var_dump($file->);die();
+    }
+
+    public function test(Request $request)
+    {
+        // $request->flash();
+        // var_dump('ok');
+        // die();
+        return response()->json([
+            'result' => $request->all()
+        ]);
+    }
+
+    public function home(Request $request)
+    {
+        // $request->flash();
+        // var_dump('ok');
+        // die();
+
+        return response()->json([
+            'result' =>  $request->old('login')
+        ]);
+    }
+
+    public function profile()
     {
         var_dump('ok');
         die();
@@ -38,6 +78,13 @@ class MainController extends Controller
 
         return response()->json([
             'result' => $value
+        ]);
+    }
+
+    public function getPsr(ServerRequestInterface $request_psr)
+    {
+        return response()->json([
+            'result' => $request_psr
         ]);
     }
 
@@ -75,17 +122,19 @@ class MainController extends Controller
         ]);
     }
 
-    public function getData(Request $request)
+    public function getData1(Request $request)
     {
         // Получаем значение заголовка X-Header
         // $cookieValue = $request->cookie('color');
 
         // Возвращаем какие-то данные в ответе
         // return response()->json(['test' => 111]);
-        $result = $this->stringProcessingService->processString('result', 2);
+        // $result = $this->stringProcessingService->processString('result', 2);
+
 
         return response()->json([
-            'result' => $result
+            'result' => $request->date('data'),
+            // 'query' => $request->query('id'),
         ]);
 
         // Получаем путь к файлу

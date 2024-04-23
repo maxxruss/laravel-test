@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+    public function testAuth()
+    {
+        return "This is a test action.";
+    }
+
     public function getDataAutorizedUser()
     {
         $data = User::where('id', Auth::id())->first()->toArray();

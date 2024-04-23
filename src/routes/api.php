@@ -4,13 +4,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
 use App\Models\Phones;
 use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
 | API Routes
-|--------------------------------------------------------------------------
+|--------------------------------------------------------------------------          
+
 |
 | Here is where you can register API routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
@@ -18,9 +20,17 @@ use App\Models\User;
 |
 */
 
+
+Route::get('testAuth', [AuthController::class, 'testAuth']);
 Route::get('test', [MainController::class, 'testGet']);
+
+// Route::get('home', function () {
+//     return view('home');
+// })->name('home');
+
+
 Route::post('test', [MainController::class, 'testPost']);
-Route::get('getData', [MainController::class, 'getData']);
+Route::get('getData', [MainController::class, 'getData'])->name('give_me_data_lpz');
 Route::post('postData', [MainController::class, 'postData']);
 Route::get('getFake', [MainController::class, 'getFake']);
 // Route::permanentRedirect('get_1', 'get_2');

@@ -13,6 +13,7 @@ use App\Services\StringProcessingService;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Psr\Http\Message\ServerRequestInterface;
+use App\Http\Controllers\AuthController;
 
 
 class MainController extends Controller
@@ -26,7 +27,56 @@ class MainController extends Controller
 
     public function testGet(Request $request)
     {
+        // return 'Hello World';
+        // return response('Hello World')->cookie(
+        //     'test_cookie', 'ok', 10000
+        // );
 
+        // return response('Hello World')->withoutCookie('test_cookie');
+        // return redirect('/');
+        // return back()->withInput();
+        // return redirect()->route('give_me_data_lpz', ['id' => 1]);
+
+        // return redirect('/api/home')->with('status', 'Profile updated!');
+        // $users = User::all();
+        // return response()->json(['users' => $users]);
+
+        $pathToFile = storage_path('app/test_image.jpeg'); // Путь к файлу, который нужно скачать
+        $name = 'test_image.jpeg'; // Имя файла, как он будет сохранен на компьютере пользователя
+
+        return response()->file($pathToFile);
+
+    }
+
+    public function getData(Request $request)
+    {
+        // Получаем значение заголовка X-Header
+        // $cookieValue = $request->cookie('color');
+
+        // Возвращаем какие-то данные в ответе
+        // return response()->json(['test' => 111]);
+        // $result = $this->stringProcessingService->processString('result', 2);
+
+
+        return response()->json([
+            'result' => 'getData',
+            'params' => $request->all(),
+            // 'query' => $request->query('id'),
+        ]);
+
+        // Получаем путь к файлу
+        // Получение файла для скачивания
+
+        // Создание объекта Response
+        // $response = new Response();
+
+        // // Установка заголовка Content-Disposition
+        // $response->header('Content-Disposition', 'attachment');
+
+        // // Возвращаем файл в виде ответа
+        // return $response;
+
+        return response()->json(['cookieValue' => []]);
     }
 
     public function testPost(Request $request)
@@ -58,9 +108,8 @@ class MainController extends Controller
         // var_dump('ok');
         // die();
 
-        return response()->json([
-            'result' =>  $request->old('login')
-        ]);
+        return response()
+        ->view('home', ['login' => 'max'], 200);
     }
 
     public function profile()
@@ -122,35 +171,7 @@ class MainController extends Controller
         ]);
     }
 
-    public function getData1(Request $request)
-    {
-        // Получаем значение заголовка X-Header
-        // $cookieValue = $request->cookie('color');
-
-        // Возвращаем какие-то данные в ответе
-        // return response()->json(['test' => 111]);
-        // $result = $this->stringProcessingService->processString('result', 2);
-
-
-        return response()->json([
-            'result' => $request->date('data'),
-            // 'query' => $request->query('id'),
-        ]);
-
-        // Получаем путь к файлу
-        // Получение файла для скачивания
-
-        // Создание объекта Response
-        // $response = new Response();
-
-        // // Установка заголовка Content-Disposition
-        // $response->header('Content-Disposition', 'attachment');
-
-        // // Возвращаем файл в виде ответа
-        // return $response;
-
-        return response()->json(['cookieValue' => []]);
-    }
+    
 
     public function postData(Request $request)
     {

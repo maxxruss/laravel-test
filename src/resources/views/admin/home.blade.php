@@ -4,7 +4,7 @@
 <body>
     <h1>Home</h1>
     <div class="alert alert-success">
-        {{ $login }} - {{ $share }}
+        admin - {{ $login }}
     </div>
 </body>
 

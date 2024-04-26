@@ -2,7 +2,7 @@
 <html>
 
 <body>
-    <h1>login</h1>
+    <h1>login Count {{$count}}</h1>
     <form method="POST" action="/profile">
         @csrf
 

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Psr\Http\Message\ServerRequestInterface;
 use App\Http\Controllers\AuthController;
-
+use Illuminate\Support\Facades\View;
 
 class MainController extends Controller
 {
@@ -23,6 +23,17 @@ class MainController extends Controller
     public function __construct(StringProcessingService $stringProcessingService)
     {
         $this->stringProcessingService = $stringProcessingService;
+    }
+
+    public function home(Request $request)
+    {
+        // $request->flash();
+        // var_dump('ok');
+        // die();
+
+        return view('main');
+
+        // return View::first(['home', 'admin.home'], ['login' => 'admin']);
     }
 
     public function testGet(Request $request)
@@ -45,7 +56,6 @@ class MainController extends Controller
         $name = 'test_image.jpeg'; // Имя файла, как он будет сохранен на компьютере пользователя
 
         return response()->file($pathToFile);
-
     }
 
     public function getData(Request $request)
@@ -100,16 +110,6 @@ class MainController extends Controller
         return response()->json([
             'result' => $request->all()
         ]);
-    }
-
-    public function home(Request $request)
-    {
-        // $request->flash();
-        // var_dump('ok');
-        // die();
-
-        return response()
-        ->view('home', ['login' => 'max'], 200);
     }
 
     public function profile()
@@ -171,7 +171,7 @@ class MainController extends Controller
         ]);
     }
 
-    
+
 
     public function postData(Request $request)
     {

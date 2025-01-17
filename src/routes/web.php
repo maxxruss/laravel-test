@@ -16,9 +16,7 @@ use GuzzleHttp\Psr7\Request;
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
-    Route::get('test', [MainController::class, 'testGet']);
-});
+Route::get('test', [MainController::class, 'testGet']);
 
 Route::get('/', function () {
     return view('welcome');

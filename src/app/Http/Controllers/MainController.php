@@ -54,10 +54,12 @@ class MainController extends Controller
         // $request->session()->put('age', 41);
         // session(['name' => 'max']);
         // session(['age' => 41]);
-        // Session::put('progress2', '10%');
+        // Session::put('progress1', '5%');
         // Session::save();
 
-        $data = Session::all();
+        // $data = Session::all();
+        // $data = session::all();
+        $data = $request->session()->get('progress1');
 
         echo json_encode($data);
         // return 'Hello World';

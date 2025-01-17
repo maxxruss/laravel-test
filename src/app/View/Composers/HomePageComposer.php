@@ -5,7 +5,7 @@ namespace App\View\Composers;
 use App\Models\User;
 use Illuminate\View\View;
 
-class ProfileComposer
+class HomePageComposer
 {
     protected $users;
 
@@ -28,7 +28,7 @@ class ProfileComposer
      */
     public function compose(View $view)
     {
-        $count = $this->users->count();
-        $view->with('count', $count);
+        $users = $this->users->count();
+        $view->with(['users' => $users, 'records' => '']);
     }
 }

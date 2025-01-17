@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 use Psr\Http\Message\ServerRequestInterface;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Session;
 
 class MainController extends Controller
 {
@@ -31,13 +32,34 @@ class MainController extends Controller
         // var_dump('ok');
         // die();
 
-        return view('main');
+        // Получаем экземпляр текущего пользователя
+        $users = [
+            ['id' => 1, 'name' => 'test1'],
+            ['id' => 2, 'name' => 'test2'],
+        ];
+
+
+        return view('home')->with('names', $users);
 
         // return View::first(['home', 'admin.home'], ['login' => 'admin']);
     }
 
     public function testGet(Request $request)
     {
+
+
+        // $value = $request->session()->all();
+        // $request->session()->now('status', 'Task was successful!');
+        // $request->session()->put('name', 'max');
+        // $request->session()->put('age', 41);
+        // session(['name' => 'max']);
+        // session(['age' => 41]);
+        // Session::put('progress2', '10%');
+        // Session::save();
+
+        $data = Session::all();
+
+        echo json_encode($data);
         // return 'Hello World';
         // return response('Hello World')->cookie(
         //     'test_cookie', 'ok', 10000
@@ -52,10 +74,12 @@ class MainController extends Controller
         // $users = User::all();
         // return response()->json(['users' => $users]);
 
-        $pathToFile = storage_path('app/test_image.jpeg'); // Путь к файлу, который нужно скачать
-        $name = 'test_image.jpeg'; // Имя файла, как он будет сохранен на компьютере пользователя
+        // $pathToFile = storage_path('app/test_image.jpeg'); // Путь к файлу, который нужно скачать
+        // $name = 'test_image.jpeg'; // Имя файла, как он будет сохранен на компьютере пользователя
+        // $user = User::first();
+        // echo url("/posts/{$user->login}");
 
-        return response()->file($pathToFile);
+        // return response()->file($pathToFile);
     }
 
     public function getData(Request $request)

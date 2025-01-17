@@ -1,14 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>main</title>
-</head>
+<html>
 
 <body>
-    @include('header')
     <h1>main</h1>
+    <div class="alert alert-success">
+        {{ $login }} - {{ $share }}
+    </div>
 </body>
 
 </html>

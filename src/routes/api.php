@@ -30,7 +30,7 @@ Route::get('test', [MainController::class, 'testGet']);
 
 
 Route::post('test', [MainController::class, 'testPost']);
-Route::get('getData', [MainController::class, 'getData'])->name('give_me_data_lpz');
+Route::get('getData', [MainController::class, 'getData'])->name('give_me_data_plz');
 Route::post('postData', [MainController::class, 'postData']);
 Route::get('getFake', [MainController::class, 'getFake']);
 // Route::permanentRedirect('get_1', 'get_2');

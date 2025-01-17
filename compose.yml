@@ -6,7 +6,7 @@ services:
         hostname: laravel-test-apache
         restart: always
         ports:
-            - "9000:80"
+            - "9123:80"
         build: .
         volumes:
             - ./src:/var/www/html

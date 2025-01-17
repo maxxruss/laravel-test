@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\View\Composers\ProfileComposer;
+use App\View\Composers\HomePageComposer;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -27,7 +27,7 @@ class CustomViewServiceProvider extends ServiceProvider
     {
         // View::composer('profile', ProfileComposer::class);
         // Регистрация макета
-        view()->composer(['main', 'login'], ProfileComposer::class);
+        view()->composer(['home', 'login'], HomePageComposer::class);
 
         // Регистрация частичного представления
         // view()->composer('header', ProfileComposer::class);

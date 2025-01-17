@@ -16,10 +16,13 @@ use GuzzleHttp\Psr7\Request;
 |
 */
 
+Route::group(['middleware' => ['web']], function () {
+    Route::get('test', [MainController::class, 'testGet']);
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('test', [MainController::class, 'testGet']);
 
 
 // Route::post('/auth', [AuthController::class, 'auth']);
@@ -28,11 +31,10 @@ Route::get('/home', [MainController::class, 'home'])->name('home');
 // Route::view('/home', 'home');
 // Route::view('/home', 'home');
 Route::view('/login', 'login');
-Route::post('/profile', function () {
+Route::get('/profile', function () {
     return redirect('home');
 })->name('profile');
 
 // Route::get('/home', function () {
 //     return view('home');
 // })->name('home');
-
